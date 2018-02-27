@@ -1,0 +1,62 @@
+#devtools::install_github("jvcasillas/untidydata")
+library(untidydata)
+#devtools::install_github("yihui/xaringan")
+library(xaringan)
+library(plot3D)
+library(tidyverse)
+
+str(language_diversity)
+head(language_diversity)
+unique(language_diversity$Measurement)
+
+# how to spread out data 
+#same as spread(., key = Measurement, value = Value)
+#only countries in Africa
+#rename columns with select
+ld <- language_diversity %>%
+  filter(., Continent == 'Africa') %>% 
+  spread(., Measurement, Value) %>%
+  select(., country = Country, 
+            pop = Population, 
+            area = Area, lang = Langs) %>%
+  mutate(., logArea = log(area), 
+            logPop = log(pop))
+
+# Check normality, transform, plot
+hist(ld$area) #we could do a log transformation to amke data more evenly distributed
+hist(log(ld$area))
+hist(ld$pop)
+hist(log(ld$pop))
+
+ld %>%
+  ggplot(., aes(x = logPop, y = lang, label = country)) +
+  geom_text()
+
+#how to represent area as well as population
+
+ld %>%
+  ggplot(., aes(x = logPop, y = lang, color = logArea))+
+  geom_point()
+
+#more dense pop = more languages 
+
+#Fit model (mRC, 3 params )
+my_mod <- lm(lang ~ logPop + logArea, data = ld)
+summary(my_mod)
+
+#interaction: better practice to do interactions this way s
+my_int <- lm(lang ~ logPop + logArea + logPop:logArea, data = ld)
+summary(my_int)
+
+#another way to do...
+my_int1 <- lm(lang ~ logPop *logArea, data = ld)
+summary(my_int1)
+
+#write up results.. (we will deal with this next week)
+#convert to html presentation 
+#xaringan::inf_mr() this allows you to see your presentation so it 
+#does not go to the first page 
+
+--- : # this gives you new slide 
+  
+#3d plot

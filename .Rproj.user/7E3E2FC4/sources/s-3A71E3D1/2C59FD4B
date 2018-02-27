@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1519750963986.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2C59FD4B",
+    "lastKnownWriteTime" : 0,
+    "last_content_update" : 1519750963986,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "787e4b66843a4d8db308676358af78be",
+        "name" : "my_mod",
+        "title" : "my_mod"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}
